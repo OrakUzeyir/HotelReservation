@@ -1,0 +1,89 @@
+import random
+
+kullanici_veritabani = {"Uzeyir": "sifre123",
+                        "Ahmet": "sifrem987"}
+
+oda_veritabani = {202: "500",
+                  505: "250",
+                  407: "1000"}
+
+kredi_kart_sistemi = {7623751788735712: "5000",
+                      8637632878913436: "3000"}
+
+admin_veritabani = {"Mehmet": "sifre123456",
+                    "Veli": "sifrem987654"}
+
+def kullanici_islemleri():
+
+    def uye_girisi(kullanici_adi, sifre):
+
+        if kullanici_adi and sifre in kullanici_veritabani:
+            return "Sisteme giriş yapılıyor."
+        else:
+            return "Hatalı giriş."
+
+    def uyelik_islemleri(kullanici_adi, sifre):
+
+        if kullanici_adi and sifre not in kullanici_veritabani:
+            kullanici_adi = input("Kullanıcı Adı: ")
+            kullanici_sifre = input("Kullanıcı Şifre: ")
+            kullanici_veritabani[kullanici_adi] = kullanici_sifre
+
+    def filtreleme_islemleri(oda_no):
+
+        if oda_no not in oda_veritabani:
+            return "Oda bulunamadı."
+        else:
+            print(oda_veritabani)
+
+    def kart_bilgileri(oda_no, kart_no):
+
+        if kart_no not in kredi_kart_sistemi:
+            return "Kart Bulunamadı."
+
+        elif oda_veritabani[oda_no] > kredi_kart_sistemi[kart_no]:
+            return "Kartınızda yeterli limit bulunmamaktadır."
+
+        else:
+            onay_kodu = random.randint(1000, 9999)
+            return onay_kodu
+
+    print(uye_girisi("Uzeyir", "sifre123"))
+    print(uyelik_islemleri("Uzeyir", "sifre123"))
+    print(filtreleme_islemleri(202))
+    print(kart_bilgileri(202, 7623751788735712))
+
+def admin_islemleri():
+
+    def admin_girisi(admin_adi, sifre):
+
+        if admin_adi and sifre in admin_veritabani:
+            return "Sisteme giriş yapılıyor."
+        else:
+            return "Hatalı giriş."
+
+    def oda_sil(oda_no):
+        return oda_veritabani.pop(oda_no)
+
+    def oda_ekle(oda_no, fiyat):
+        oda_veritabani[oda_no] = fiyat
+        return oda_veritabani
+
+    def oda_listele(oda_no):
+        return oda_veritabani[oda_no]
+
+    def admin_hesap_sil(admin):
+        return admin_veritabani.pop(admin)
+
+    def kullanici_hesap_sil(kullanici):
+        return kullanici_veritabani.pop(kullanici)
+
+    print(admin_girisi("Mehmet", "sifre123456"))
+    print(oda_sil(202))
+    print(oda_ekle(303, 450))
+    print(oda_listele(407))
+    print(admin_hesap_sil("Veli"))
+    print(kullanici_hesap_sil("Ahmet"))
+
+kullanici_islemleri()
+admin_islemleri()
