@@ -13,20 +13,31 @@ kredi_kart_sistemi = {7623751788735712: "5000",
 admin_veritabani = {"Mehmet": "sifre123456",
                     "Veli": "sifrem987654"}
 
+def giris_ekrani():
+    secim = input("Kullanıcı Girişi(0)                Personel Girişi(1): ")
+    if secim == "0":
+        kullanici_islemleri()
+    elif secim == "1":
+        admin_islemleri()
+    else:
+        return secim
+
 def kullanici_islemleri():
 
-    def uye_girisi(kullanici_adi, sifre):
+    def uye_girisi():
+        kullanici_adi = input("Kullanıcı Adı: ")
+        kullanici_sifre = input("Kullanıcı Şifre: ")
 
-        if kullanici_adi and sifre in kullanici_veritabani:
+        if kullanici_adi and kullanici_sifre in kullanici_veritabani:
             return "Sisteme giriş yapılıyor."
         else:
             return "Hatalı giriş."
 
-    def uyelik_islemleri(kullanici_adi, sifre):
+    def uyelik_islemleri():
+        kullanici_adi = input("Kullanıcı Adı: ")
+        kullanici_sifre = input("Kullanıcı Şifre: ")
+        if kullanici_adi and kullanici_sifre not in kullanici_veritabani:
 
-        if kullanici_adi and sifre not in kullanici_veritabani:
-            kullanici_adi = input("Kullanıcı Adı: ")
-            kullanici_sifre = input("Kullanıcı Şifre: ")
             kullanici_veritabani[kullanici_adi] = kullanici_sifre
 
     def filtreleme_islemleri(oda_no):
@@ -48,10 +59,11 @@ def kullanici_islemleri():
             onay_kodu = random.randint(1000, 9999)
             return onay_kodu
 
-    print(uye_girisi("Uzeyir", "sifre123"))
-    print(uyelik_islemleri("Uzeyir", "sifre123"))
-    print(filtreleme_islemleri(202))
-    print(kart_bilgileri(202, 7623751788735712))
+    giris_ekrani()
+    uye_girisi()
+    uyelik_islemleri()
+    filtreleme_islemleri(202)
+    kart_bilgileri(202, 7623751788735712)
 
 def admin_islemleri():
 
@@ -78,12 +90,13 @@ def admin_islemleri():
     def kullanici_hesap_sil(kullanici):
         return kullanici_veritabani.pop(kullanici)
 
-    print(admin_girisi("Mehmet", "sifre123456"))
-    print(oda_sil(202))
-    print(oda_ekle(303, 450))
-    print(oda_listele(407))
-    print(admin_hesap_sil("Veli"))
-    print(kullanici_hesap_sil("Ahmet"))
+    giris_ekrani()
+    admin_girisi("Mehmet", "sifre123456")
+    oda_sil(202)
+    oda_ekle(303, 450)
+    oda_listele(407)
+    admin_hesap_sil("Veli")
+    kullanici_hesap_sil("Ahmet")
 
 kullanici_islemleri()
 admin_islemleri()
